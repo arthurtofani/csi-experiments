@@ -1,0 +1,14 @@
+version: '3'
+services:
+  jupyter:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    working_dir: /home
+    ports:
+      - 8888:8888
+      - 6006:6006
+    volumes:
+      - ./dataset:/dataset
+      - ./notebooks:/notebooks
+#    environment: &common-env
