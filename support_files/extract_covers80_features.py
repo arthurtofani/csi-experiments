@@ -16,6 +16,6 @@ feature_dir = "/dataset/coversongs/features/"
 batch_feature_extractor(dataset_csv=COVERS_80_CSV,
                         audio_dir=audio_dir,
                         feature_dir=feature_dir,
-                        n_workers=1,
+                        n_workers=3,
                         mode="parallel",
                         params=extractor_profile)

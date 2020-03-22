@@ -1,6 +1,6 @@
 FROM amaksimov/python_data_science
 RUN apt-get update
-RUN apt-get install -y ffmpeg
+RUN apt-get install -y ffmpeg nano
 
 WORKDIR /home
 COPY support_files/* ./
