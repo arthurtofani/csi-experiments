@@ -15,6 +15,7 @@ RUN pip3 install librosa==0.7.2
 RUN pip3 install numba deepdish psutil
 RUN pip3 install cython
 RUN pip3 install madmom essentia
+RUN pip3 install matrixprofile-ts
 
 
 #CMD ["jupyter", "lab", "--allow-root"]
