@@ -1,6 +1,6 @@
 import librosa
 import numpy as np
-from models import feature as model
+from csi.models import feature as model
 
 class Feature:
   def __init__(self, **kwargs):

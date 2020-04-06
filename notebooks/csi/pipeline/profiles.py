@@ -1,10 +1,10 @@
 import librosa
 import numpy as np
-from vendor import simplefast
-from models.profile import *
+from csi.vendor import simplefast
+from csi.models.profile import *
 from . import kernels
 from . import ssm
-import util
+from csi.util import normalize
 
 
 class SelfJoinProfile:
@@ -22,7 +22,11 @@ class SelfJoinProfile:
 class SimpleFast(SelfJoinProfile):
   def _exec(self, feature, multiplier):
     m = self._kwargs.get('m') or feature.samples_per_beat()
-    return simplefast.simpleself(feature.data, int(round(m * multiplier)))
+    try:
+      s = simplefast.simpleself(feature.data, int(round(m * multiplier)))
+    except:
+      return (np.array([]), np.array([]))
+    return (normalize(s[0]**2), s[1])
 
 
 class SSMCheckerboardBox(SelfJoinProfile):
@@ -30,6 +34,9 @@ class SSMCheckerboardBox(SelfJoinProfile):
     L = self._kwargs.get('L') or feature.samples_per_beat()
     _kernel = self._kwargs.get('kernel') or kernels.kernel_checkerboard_box
     s = ssm.recurrence_matrix(feature.data, self=True, **self._kwargs)
+    feature.song.tmp['ssm'] = s
     r = ssm.compute_novelty_profile(s, kernel=_kernel(int(round(L * multiplier))), exclude=False)
-    return (r, None)
+    #return (r, None)
+    return (normalize(r)**2, None)
+
 

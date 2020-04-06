@@ -1,7 +1,7 @@
 from heapq import nsmallest
 from bisect import bisect_right
 import base64
-from util import *
+from csi.util import *
 
 class Tokenizer:
   def __init__(self, **kwargs):

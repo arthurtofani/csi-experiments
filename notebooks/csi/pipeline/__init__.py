@@ -4,7 +4,7 @@ from . import peak_detection
 from . import profiles
 from . import ssm
 from . import tokenizers
-from models.song import *
+from csi.models.song import *
 import numpy as np
 
 class Pipeline:
@@ -29,6 +29,7 @@ class Pipeline:
     self._detect_peaks()
     if self._tokenizer_strategy is None: return
     self._tokenize()
+    print("Done")
 
   def use_feature(self, feature_strategy):
     self._feature_strategy = feature_strategy
@@ -75,6 +76,7 @@ class Pipeline:
         song.profiles.append(prfl)
 
   def _detect_peaks(self):
+    print("Detecting peaks")
     for song in self.songs:
       song.peaks = []
       l = len(song.profiles)
@@ -84,6 +86,7 @@ class Pipeline:
         song.peaks.append(peaks)
 
   def _tokenize(self):
+    print("Creating tokens")
     for song in self.songs:
       song.tokens = []
       song.tokens = self._tokenizer_strategy.execute(song)
