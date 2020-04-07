@@ -5,7 +5,7 @@ class Feature:
     self.name = name
 
   def sample_rate(self):
-    return (self.song.sr  * self.data.size) / self.song.y.size
+    return len(self.song.feature.data[0])/self.song.seconds()
 
   def samples_per_beat(self):
     return (60 * self.sample_rate()) / self.song.tempo

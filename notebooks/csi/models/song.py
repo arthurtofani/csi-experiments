@@ -13,3 +13,6 @@ class Song:
 
   def samples_per_beat(self):
     return (60 * self.sr) / self.tempo
+
+  def seconds(self):
+    return len(self.y) / self.sr

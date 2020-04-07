@@ -28,6 +28,13 @@ class ChromagramCENS(Feature):
   def _exec(self, song):
     return librosa.feature.chroma_cens(**self._signal_params(song))
 
+class Mfcc(Feature):
+  def _exec(self, song):
+    params = {'n_mfcc': 7}
+    params.update(self._signal_params(song))
+    return librosa.feature.mfcc(**params)
+
+
 # import code; code.interact(local=dict(globals(), **locals()))
 
 #class CQT(Feature):

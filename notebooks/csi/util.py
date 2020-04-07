@@ -3,7 +3,7 @@ import librosa.display as display
 import matplotlib.pyplot as plt
 import numpy as np
 
-PLOT_COLORS = ['b','g','r', 'c', 'm', 'y', 'pink', 'b', 'r', 'gray', 'orange', 'brown' ]
+PLOT_COLORS = ['b','g','r', 'c', 'm', 'y', 'pink', 'gray', 'orange', 'brown', 'purple', 'black' ]
 
 def samples_per_beat(bpm, sr):
   return (60 / bpm) * sr
@@ -24,20 +24,23 @@ def plot_signal(song):
   plt.title(song.path)
 
 
-def plot_peaks(peaks, profiles, min_y=0, max_y=1.0, samecolor=False):
+def plot_peaks(peaks, profiles, **kwargs):
   for i in range(len(peaks)):
     peak_list = peaks[i]
     peak_idx = [profiles[i].data[j] for j in peak_list]
-    color = PLOT_COLORS[i] if not samecolor else 'k'
-    plt.plot(peak_list, peak_idx, 'o', color=color)
+    args = {'color': PLOT_COLORS[i]}
+    args.update(kwargs)
+    plt.plot(peak_list, peak_idx, 'o', **args)
   #plt.colorbar()
 
-def plot_chroma(song):
+def plot_chroma(song, **kwargs):
   chroma = song.feature.data
-  display.specshow(chroma, y_axis='chroma', x_axis='frames')
+  args = {'y_axis':'chroma', 'x_axis':'frames'}
+  args.update(kwargs)
+  display.specshow(chroma, **args)
   plt.text(-3, -3, 'frames/second = %s' % song.feature.sample_rate())
   plt.text(-3, -4.5, 'frames/beat = %s' % song.feature.samples_per_beat())
-  plt.title('chroma')
+  plt.title(song.path)
   #plt.colorbar()
 
 def plot_constellation(peaks):
@@ -50,7 +53,9 @@ def plot_ssm(ssm):
   display.specshow(ssm, x_axis='frames')
   plt.title('SSM')
 
-def plot_profiles(profiles):
+def plot_profiles(profiles, **kwargs):
   for i in range(len(profiles)):
-    plt.plot(profiles[i].data, color=PLOT_COLORS[i])
+    args = {'color': PLOT_COLORS[i]}
+    args.update(kwargs)
+    plt.plot(profiles[i].data, **args)
   #plt.colorbar()
