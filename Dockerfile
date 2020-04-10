@@ -17,5 +17,6 @@ RUN pip3 install cython
 RUN pip3 install madmom essentia
 RUN pip3 install matrixprofile-ts
 RUN pip3 install git+https://github.com/bmcfee/crema.git@master
+RUN pip3 install hashedindex
 
 #CMD ["jupyter", "lab", "--allow-root"]
